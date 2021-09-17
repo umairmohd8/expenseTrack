@@ -11,11 +11,11 @@ class TransList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 300,
-      child: ListView(
-        children: tranasctions.map((e) {
+      child: ListView.builder(
+        itemBuilder: (ctx, index) {
           return Card(
             margin: EdgeInsets.all(10),
-            color: Colors.white70,
+            color: Theme.of(context).primaryColorLight,
             elevation: 5,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -39,12 +39,13 @@ class TransList extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      e.title,
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      tranasctions[index].title,
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      DateFormat.yMMMd().format(e.date),
-                      style: TextStyle(color: Colors.grey),
+                      DateFormat.yMMMd().format(tranasctions[index].date),
+                      style: TextStyle(color: Colors.black87),
                     ),
                   ],
                 ),
@@ -52,13 +53,14 @@ class TransList extends StatelessWidget {
                 Container(
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      '₹ ${e.amt}',
+                      '₹ ${tranasctions[index].amt.toStringAsFixed(2)}',
                       style: TextStyle(color: Colors.black),
                     ))
               ],
             ),
           );
-        }).toList(), //mapped into list of widgets
+        },
+        itemCount: tranasctions.length,
       ),
     );
   }
