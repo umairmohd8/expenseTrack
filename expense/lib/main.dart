@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
         //colorScheme: ColorScheme.fromSwatch()
+        fontFamily: 'QuickSand',
       ),
       home: MyHomePage(),
     );
@@ -55,7 +56,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         //backgroundColor: Colors.red[200],
-        title: Text('September'),
+        title: Text(
+          'September',
+        ),
         actions: <Widget>[
           IconButton(
               onPressed: () {
