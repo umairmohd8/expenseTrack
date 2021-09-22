@@ -1,3 +1,4 @@
+import 'package:expense/widgets/chart.dart';
 import 'package:expense/widgets/new_transaction.dart';
 import 'package:expense/widgets/trans_list.dart';
 import './models/transaction.dart';
@@ -32,6 +33,17 @@ class _MyHomePageState extends State<MyHomePage> {
     Transaction("12", "milk", 20.0, DateTime.now()),
     Transaction("14", "cookies", 43, DateTime.now())
   ];
+
+  List<Transaction> get _recentTrans {
+    return _UserTrans.where((element) {
+      return element.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      );
+    }).toList();
+  }
+
   void _addNewTransaction(String newTitle, double newAmount) {
     final newTx = Transaction(
         DateTime.now().toString(), newTitle, newAmount, DateTime.now());
@@ -71,21 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              height: 50,
-              child: Card(
-                color: Colors.grey,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(' - Expenses'),
-                    Text(' + Income'),
-                  ],
-                ),
-                elevation: 10,
-              ),
-            ),
+            Chart(_recentTrans),
             TransList(_UserTrans),
           ],
         ),
