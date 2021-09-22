@@ -30,8 +30,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _UserTrans = [
-    //Transaction("12", "milk", 20.0, DateTime.now()),
-    //Transaction("14", "cookies", 43, DateTime.now())
+    Transaction("12", "milk", 20.0, DateTime.now()),
+    Transaction("14", "cookies", 43, DateTime.now())
   ];
 
   List<Transaction> get _recentTrans {
