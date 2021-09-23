@@ -14,9 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Expense App',
       theme: ThemeData(
+        brightness: Brightness.dark,
         primarySwatch: Colors.purple,
         //colorScheme: ColorScheme.fromSwatch()
-        fontFamily: 'QuickSand',
+        //fontFamily: 'QuickSand',
       ),
       home: MyHomePage(),
     );

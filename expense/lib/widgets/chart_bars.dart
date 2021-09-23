@@ -6,15 +6,16 @@ class ChartBar extends StatelessWidget {
   final double spendingPctOfTotal;
 
   ChartBar(this.label, this.spendingAmount, this.spendingPctOfTotal);
-
-
+  
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
-      Text('₹${spendingAmount.toStringAsFixed(0)}'),
+      spendingAmount < 999.0 ? 
+      Text('₹${spendingAmount.toStringAsFixed(0)}') :
+      Text('₹${(spendingAmount/1000).toStringAsFixed(2)}k'),
       SizedBox(height: 4,),
       Container(
-        height: 60,
+        height: 80,
         width: 10,
         child: Stack(children: <Widget>[
           Container(
