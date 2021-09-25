@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Expense App',
       theme: ThemeData(
-        brightness: Brightness.dark,
+        //brightness: Brightness.dark,
+
         primarySwatch: Colors.purple,
         //colorScheme: ColorScheme.fromSwatch()
         //fontFamily: 'QuickSand',
@@ -56,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
+      elevation: 10.0,
         context: ctx,
         builder: (_) {
           return GestureDetector(

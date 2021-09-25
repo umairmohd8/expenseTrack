@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addTx;
@@ -10,20 +11,34 @@ class NewTransaction extends StatefulWidget {
 
 class _NewTransactionState extends State<NewTransaction> {
   final titleController = TextEditingController();
-
   final amountController = TextEditingController();
+  DateTime _selectedDate;
 
-  void submitData() {
-    final enteredTitle = titleController.text;
+  void _submitData() {
+    final _enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
 
-    if (enteredAmount <= 0 || enteredTitle.isEmpty) {
+    if (enteredAmount <= 0 || _enteredTitle.isEmpty) {
       return;
     }
 
-    widget.addTx(enteredTitle, enteredAmount);
+    widget.addTx(_enteredTitle, enteredAmount);
 
     Navigator.of(context).pop();
+  }
+
+  void _presentDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2021),
+      lastDate: DateTime.now(),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        _selectedDate = DateTime.now();
+      }
+      _selectedDate = pickedDate;
+    });
   }
 
   @override
@@ -38,20 +53,31 @@ class _NewTransactionState extends State<NewTransaction> {
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
               controller: titleController,
-              onSubmitted: (_) => submitData(),
+              onSubmitted: (_) => _submitData(),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
               controller: amountController,
               keyboardType: TextInputType.number,
-              onSubmitted: (_) => submitData(),
+              onSubmitted: (_) => _submitData(),
             ),
-            ElevatedButton(
-                onPressed: submitData,
-                child: Icon(
-                  Icons.accessible,
-                  color: Colors.black,
-                ))
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
+                ),
+                ElevatedButton(
+                    onPressed: _presentDatePicker,
+                    child: Icon(Icons.calendar_today)),
+                ElevatedButton(
+                    onPressed: _submitData,
+                    child: Icon(
+                      Icons.add_box_rounded,
+                      color: Colors.white,
+                    )),
+              ],
+            ),
           ],
         ),
       ),
